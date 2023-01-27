@@ -5,7 +5,7 @@ using UnityEngine;
 public class EnemySphereHori : MonoBehaviour
 {
     float direct = 1;
-    [SerializeField] float speed, moveSpeed, deathTime = 0;
+    [SerializeField] float speed;
     Rigidbody rgb;
 
     private void Start() {
@@ -15,16 +15,21 @@ public class EnemySphereHori : MonoBehaviour
 
     private void Update() {
 
-        transform.Translate(0,0,moveSpeed*Time.deltaTime);
+        transform.Translate(0,0,Road.roadspeed);
         rgb.velocity = new Vector3(direct*speed,0,0);
 
-        deathTime += Time.deltaTime;
-        if(deathTime>30) Destroy(this.gameObject);
+        
     }
     private void OnTriggerEnter(Collider other) {
         
         if(other.gameObject.tag == "Barrier"){
             direct *= -1;
+        }
+    }
+    private void OnCollisionEnter(Collision other) {
+        
+        if(other.gameObject.tag == "Enemy"){
+            Destroy(this.gameObject);
         }
     }
 }

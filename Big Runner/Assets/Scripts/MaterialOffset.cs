@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RoadOffset : MonoBehaviour
+public class MaterialOffset : MonoBehaviour
 {
     MeshRenderer mr;
     [SerializeField] float offSetSpeed;
@@ -13,5 +13,6 @@ public class RoadOffset : MonoBehaviour
     private void Update() {
         
         mr.material.mainTextureOffset = new Vector2(0, -Time.realtimeSinceStartup/offSetSpeed);
+
     }
 }

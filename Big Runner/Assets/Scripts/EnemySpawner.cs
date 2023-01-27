@@ -4,22 +4,37 @@ using UnityEngine;
 
 public class EnemySpawner : MonoBehaviour
 {
-    [SerializeField] GameObject sphereHori;
-    float spawnTime = 0, randomTime = 0;
+    [SerializeField] GameObject sphereHori, cone;
+    Vector3 randomPos;
+    float spawnTimeSphere = 0, randomTimeSphere = 0;
+    float spawnTimeCone = 0, randomTimeCone = 0;
 
-    private void Start() {
-        
-    }
     private void Update() {
         
-        spawnTime += Time.deltaTime;
-        if(spawnTime > randomTime){
+        randomPos = new Vector3(Random.Range(-0.4f,0.4f), transform.position.y, transform.position.z);
+        SpawnAll();
+    }
+    private void SpawnAll(){
+
+        spawnTimeSphere += Time.deltaTime;
+        if(spawnTimeSphere > randomTimeSphere){
             SpawnSphereHori();
-            spawnTime = 0;
-            randomTime = Random.Range(0.5f,5f);
+            spawnTimeSphere = 0;
+            randomTimeSphere = Random.Range(2.5f,20f);
         }
+
+        spawnTimeCone += Time.deltaTime;
+        if(spawnTimeCone > randomTimeCone){
+            SpawnCone();
+            spawnTimeCone = 0;
+            randomTimeCone = Random.Range(2.5f,20f);
+        }
+
     }
     private void SpawnSphereHori(){
-        Instantiate(sphereHori, transform.position, Quaternion.identity);
+        Instantiate(sphereHori, randomPos, Quaternion.identity);
+    }
+    private void SpawnCone(){
+        Instantiate(cone);
     }
 }
